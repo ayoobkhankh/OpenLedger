@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script src="../app/dependancies/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../app/dependancies/semantic.css">
+</head>
+
+<body>
+
+    <div class="ui container">
+        <h2>Create a New Account</h2>
+        <form class="ui form">
+            <div class="field">
+                <label for="accountName">Account Name</label>
+                <input type="text" name="accountName" id="accountName" placeholder="Enter Account Name">
+            </div>
+            <div class="field">
+                <label for="accountType">Account Type</label>
+                <input type="text" name="accountType" id="accountType" placeholder="Enter Account Type">
+            </div>
+            <div class="field">
+                <label for="accountGroup">Account Group</label>
+                <input type="text" name="accountGroup" id="accountGroup" placeholder="Enter Account Group">
+            </div>
+            <div class="field">
+                <label for="accountSubGroup">Account Sub Group</label>
+                <input type="text" name="accountSubGroup" id="accountSubGroup" placeholder="Enter Account Sub Group">
+            </div>
+            <div class="field">
+                <label for="locked">Locked</label>
+                <input type="text" name="locked" id="locked" placeholder="Enter Locked Status">
+            </div>
+            <button id="saveLedger" class="ui button" type="button">Submit</button>
+        </form>
+    </div>
+
+    <div id="searchdrop" class="ui search selection dropdown">
+        <i class="edit icon"></i>
+        <span class="text">Choose Account Group</span>
+        <div class="menu">
+            <div class="ui search icon input">
+                <i class="search icon"></i>
+                <input type="text" name="search" placeholder="Search...">
+            </div>
+            <div class="divider"></div>
+            <div class="header">
+                <i class="tags icon"></i>
+                Equity
+            </div>
+            <div class="item">
+                <div class="ui red empty circular label"></div>
+                Important
+            </div>
+            <div class="item">
+                <span class="description">2 new</span>
+                <span class="text">Important</span>
+            </div>
+            <div class="item">
+                <div class="ui blue empty circular label"></div>
+                Announcement
+            </div>
+            <div class="item">
+                <div class="ui black empty circular label"></div>
+                Discussion
+            </div>
+            <div class="divider"></div>
+            <div class="header">
+                <i class="calendar icon"></i>
+                Liability
+            </div>
+            <div class="item">
+                <i class="olive circle icon"></i>
+                This Week
+            </div>
+            <div class="item">
+                <i class="violet circle icon"></i>
+                This Month
+            </div>
+            <div class="item">
+                <i class="orange circle icon"></i>
+                This Year
+            </div>
+            <div class="divider"></div>
+            <div class="header">
+                <i class="calendar icon"></i>
+                Assets
+            </div>
+            <div class="item">
+                <i class="violet circle icon"></i>
+                This Month
+            </div>
+            <div class="divider"></div>
+            <div class="header">
+                <i class="calendar icon"></i>
+                Income
+            </div>
+            <div class="item">
+                <i class="violet circle icon"></i>
+                This Month
+            </div>
+            <div class="divider"></div>
+            <div class="header">
+                <i class="calendar icon"></i>
+                Expense
+            </div>
+            <div class="item">
+                <i class="violet circle icon"></i>
+                This Month
+            </div>
+        </div>
+    </div>
+    <!-- <button id="showCOA" class="ui button" type="button">Show COA</button> -->
+    <!-- Add Semantic UI JavaScript link here -->
+
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script src="../app/dependancies/semantic.js"></script>
+    <script>
+        // var fs = require("fs");
+        // var path = require('path');
+
+
+        $(document).ready(function () {
+
+            const models = require('../models');
+            const db = require('../models/index');
+            const Sequelize = require('sequelize');
+            const ipc = require('electron').ipcRenderer
+
+            $('#saveLedger').on('click', function (event) {
+
+                event.preventDefault();
+                // const accountName = $('#accountName').val();
+                // const accountType = $('#accountType').val();
+                // const accountGroup = $('#accountGroup').val();
+                // const accountSubGroup = $('#accountSubGroup').val();
+                // const locked = $('#locked').val();
+
+
+                const accountData = {
+                    accname: $('#accountName').val(),
+                    acctype: $('#accountType').val(),
+                    accgroup: $('#accountGroup').val(),
+                    accsubgroup: $('#accountSubGroup').val(),
+                    locked: false,
+                };
+
+                models.Accounts.upsert(accountData).then(result => {
+                    if (result === false) {
+                        alert("Tax catagory updated!");
+                    }
+                    else if (result === true) {
+                        alert("Tax catagory saved!");
+                    }
+                    else alert("An error occured!");
+                }).catch(err => {
+                    alert(err);
+                });
+            });
+
+            ipc.on('ActionReq', function (event, arg) {
+                models.Accounts.findOne({ where: { 'id': arg } }).then(function (list) {
+
+                    console.log(list.accname);
+
+                    $('#accountName').val(list.accname)
+                    // list.forEach(item => {
+
+                    //     // console.log(item.accname)
+                    //     $('#table-body').append('<tr><td>' + item.id + '</td><td>' + item.accname + '</td><td>' + item.acctype + '</td><td>' + item.accgroup + '</td></tr>');
+                    // });
+
+                })
+            })
+
+            $('#searchdrop').dropdown({
+
+                fullTextSearch: true
+            })
+
+
+        });
+    </script>
+
+    <script>
+        if (window.module) module = window.module;
+    </script>
+</body>
+
+</html>
