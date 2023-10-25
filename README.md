@@ -1,10 +1,10 @@
-# OpenLedger Accounting Software
+# OpenLedger Accounting App
 
-Welcome to the OpenLedger Accounting Software project! This software is designed to provide a user-friendly, free, and lightweight accounting solution that can be used on any platform. It supports both single and multi-user functionality, and it's built using JavaScript, SQL, and HTML.
+The purpose is to provide a user-friendly, free, and lightweight accounting solution that can be used on any platform. It must support both single and multi-user functionality.
 
 ## Features
 
-- **Cross-Platform Compatibility:** The accounting software, built upon Node.js and Electron, is intentionally designed to be compatible with multiple platforms, ensuring that it can be readily used by a diverse user base. During the initial stage of development, support for three major operating systems: Windows, Linux, and Mac is to be ensured.
+- **Cross-Platform Compatibility:** This app being built upon Node.js and Electron, must be compatible with multiple platforms, ensuring that it can be readily used by a diverse user base. During the initial stage of development, support for three major operating systems: Windows, Linux, and Mac is to be available.
 
 - **Single and Multi-User:** Whether you require individual financial management or seek collaborative accounting capabilities for team-based tasks, our software is equipped to seamlessly address both scenarios. Additionally, this software is powered by the Sequelize ORM, which enables support for a wide range of databases, including file-based options like SQLite, as well as robust database systems such as MySQL and PostgreSQL, all managed from a unified codebase.
 
