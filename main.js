@@ -48,13 +48,17 @@ ipc.on('showCOA', function (event, arg) {
 
   COAWindow.loadFile('app/chartof_accounts.html')
 
-  COAWindow.show();
+  COAWindow.maximize()
 
+  COAWindow.webContents.on('did-finish-load', function () {
+    COAWindow.webContents.session.clearCache();
+    COAWindow.show();
+  })
 
 })
 
 ipc.on('showCreateAccount', function (event, arg) {
-  COAWindow = new BrowserWindow({
+  CreateAccountWindow = new BrowserWindow({
     width: 700,
     height: 350,
     webPreferences: {
@@ -65,11 +69,15 @@ ipc.on('showCreateAccount', function (event, arg) {
     // icon: (__dirname, 'dependancies/images/icon.png')
   })
 
-  COAWindow.loadFile('app/create_ledger.html')
+  CreateAccountWindow.loadFile('app/create_account.html')
 
-  COAWindow.webContents.on('did-finish-load', function () {
-    COAWindow.show();
-    COAWindow.webContents.send('ActionReq', arg);
+  CreateAccountWindow.maximize()
+
+
+  CreateAccountWindow.webContents.on('did-finish-load', function () {
+    CreateAccountWindow.webContents.session.clearCache();
+    CreateAccountWindow.show();
+    CreateAccountWindow.webContents.send('ActionReq', arg);
   })
 
 

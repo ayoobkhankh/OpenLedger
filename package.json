@@ -1,18 +1,15 @@
 {
-  "name": "electron-quick-start",
+  "name": "open_ledger",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A user-friendly, free, and lightweight accounting solution",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/ayoobkhankh/OpenLedger.git",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Accounting",
+    "Multi platform"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",

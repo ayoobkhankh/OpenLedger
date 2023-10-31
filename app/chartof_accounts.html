@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chart of Accounts</title>
     <script>
         if (typeof module === 'object') {
             window.module = module;
@@ -13,6 +13,9 @@
     </script>
     <script src="../app/dependancies/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../app/dependancies/semantic.css">
+    <style>
+        .editButton {}
+    </style>
 </head>
 
 <body>
@@ -23,9 +26,12 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
+                    <th>Account Name</th>
+                    <th>Nature</th>
+                    <th>Group</th>
+                    <th>Sub Group</th>
+                    <th>Actions</th>
+
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -52,14 +58,31 @@
             const db = require('../models/index');
             const Sequelize = require('sequelize');
 
+            const ipc = require('electron').ipcRenderer
+
             models.Accounts.findAll().then(function (list) {
                 list.forEach(item => {
 
                     // console.log(item.accname)
-                    $('#table-body').append('<tr><td>' + item.id + '</td><td>' + item.accname + '</td><td>' + item.acctype + '</td><td>' + item.accgroup + '</td></tr>');
+                    $('#table-body').append('<tr><td>' + item.id + '</td><td>' +
+                        item.accname + '</td><td>' + item.acctype + '</td><td>' + item.accgroup + '</td><td>' + item.accsubgroup + '</td>' +
+                        '<td><button id="' + item.id + '" class="editButton ui compact icon button"><i class="edit icon"></i></button></td></tr>');
                 });
 
             })
+
+
+            $(document).on("click", ".editButton", function () {
+                // $(".editButton").click(function () {
+
+                var id = $(this).attr('id');
+
+                ipc.send('showCreateAccount', id)
+
+
+                // alert(id);
+
+            });
 
         });
     </script>

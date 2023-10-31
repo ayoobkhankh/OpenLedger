@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create Account</title>
     <script>
         if (typeof module === 'object') {
             window.module = module;
@@ -18,7 +18,7 @@
 <body>
 
     <div class="ui container">
-        <h2>Create a New Account</h2>
+        <h4 class="ui dividing header">Create Account</h4>
         <form class="ui form">
             <div class="field">
                 <label for="accountName">Account Name</label>
@@ -40,11 +40,14 @@
                 <label for="locked">Locked</label>
                 <input type="text" name="locked" id="locked" placeholder="Enter Locked Status">
             </div>
+
             <button id="saveLedger" class="ui button" type="button">Submit</button>
         </form>
     </div>
 
-    <div id="searchdrop" class="ui search selection dropdown">
+
+
+    <!-- <div id="searchdrop" class="ui search selection dropdown">
         <i class="edit icon"></i>
         <span class="text">Choose Account Group</span>
         <div class="menu">
@@ -118,7 +121,7 @@
                 This Month
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- <button id="showCOA" class="ui button" type="button">Show COA</button> -->
     <!-- Add Semantic UI JavaScript link here -->
 
@@ -178,6 +181,8 @@
                     console.log(list.accname);
 
                     $('#accountName').val(list.accname)
+                    $('#accountType').val(list.acctype)
+
                     // list.forEach(item => {
 
                     //     // console.log(item.accname)
